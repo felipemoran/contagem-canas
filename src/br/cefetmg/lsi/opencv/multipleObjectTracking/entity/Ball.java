@@ -12,7 +12,7 @@ public class Ball {
 	private Scalar hsvMax;
 	private Scalar colour;
 	static public enum Colours {
-		NONE(""), RED("Red"), GREEN("Green"), BLUE("Blue");
+		NONE(""), RED("Red");
 		
 		private final String name;
 		
@@ -29,12 +29,12 @@ public class Ball {
 		xPos = 0;
 		yPos = 0;
 		type = Colours.NONE;
-		int hMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.hMin"));
-		int sMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.sMin"));
-		int vMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.vMin"));
-		int hMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.hMax"));
-		int sMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.sMax"));
-		int vMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.vMax"));
+		int hMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.hMin"));
+		int sMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.sMin"));
+		int vMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.vMin"));
+		int hMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.hMax"));
+		int sMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.sMax"));
+		int vMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.vMax"));
 		setHsvMin(new Scalar(hMin, sMin, vMin));
 		setHsvMax(new Scalar(hMax, sMax, vMax));
 		setColour(new Scalar(0, 0, 255));
@@ -49,45 +49,14 @@ public class Ball {
 		int sMax = 0;
 		int vMax = 0;
 
-		switch (name) {
-			case RED:
-				hMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.hMin"));
-				sMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.sMin"));
-				vMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.vMin"));
-				hMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.hMax"));
-				sMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.sMax"));
-				vMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.red.vMax"));
-				setColour(new Scalar(0, 0, 255));
-				break;
-				
-			case GREEN:
-				hMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.green.hMin"));
-				sMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.green.sMin"));
-				vMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.green.vMin"));
-				hMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.green.hMax"));
-				sMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.green.sMax"));
-				vMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.green.vMax"));
-				setColour(new Scalar(0, 255, 0));
-				break;
-				
-			case BLUE:
-				hMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.blue.hMin"));
-				sMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.blue.sMin"));
-				vMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.blue.vMin"));
-				hMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.blue.hMax"));
-				sMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.blue.sMax"));
-				vMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.blue.vMax"));
-				setColour(new Scalar(255, 0, 0));
-				break;
-	
-			default:
-				xPos = 0;
-				yPos = 0;
-				hsvMax = new Scalar(0, 0, 0);
-				hsvMin = new Scalar(0, 0, 0);
-				colour = new Scalar(0, 0, 0);
-				break;
-		}
+
+        hMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.hMin"));
+        sMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.sMin"));
+        vMin = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.vMin"));
+        hMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.hMax"));
+        sMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.sMax"));
+        vMax = new Integer(PropertiesLoaderImpl.getValor("multipleObjectTracking.color.vMax"));
+        setColour(new Scalar(0, 0, 255));
 
 		setHsvMin(new Scalar(hMin, sMin, vMin));
 		setHsvMax(new Scalar(hMax, sMax, vMax));

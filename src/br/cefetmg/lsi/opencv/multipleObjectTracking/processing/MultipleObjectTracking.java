@@ -131,20 +131,10 @@ public class MultipleObjectTracking {
 						updateFrames(image, thresholdedImage);
 					} else {
 						Ball redBall = new Ball(Ball.Colours.RED);
-						Ball greenBall = new Ball(Ball.Colours.GREEN);
-						Ball blueBall = new Ball(Ball.Colours.BLUE);
 
-						ArrayList<Ball> balls = new ArrayList<Ball>();
-						balls.add(redBall);
-						balls.add(greenBall);
-						balls.add(blueBall);
-
-
-						for (Ball ball : balls){
-							thresholdedImage = processImage(hsvImage, ball.getHsvMin(), ball.getHsvMax());
-							trackFilteredObject(ball, thresholdedImage, image);
-							updateFrames(image, thresholdedImage);
-						}
+                        thresholdedImage = processImage(hsvImage, redBall.getHsvMin(), redBall.getHsvMax());
+                        trackFilteredObject(redBall, thresholdedImage, image);
+                        updateFrames(image, thresholdedImage);
                     }
 					
 				} else {
