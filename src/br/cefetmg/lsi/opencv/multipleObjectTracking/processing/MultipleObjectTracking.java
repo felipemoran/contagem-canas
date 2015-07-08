@@ -27,6 +27,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 //import br.cefetmg.lsi.opencv.multipleObjectTracking.gui.Scatter;
+import SimpleOpenNI.SimpleOpenNI;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -54,6 +55,7 @@ public class MultipleObjectTracking {
 	private Panel panelThreshold = new Panel();
 
     private Double mediaHistorica = 0.0;
+    private Long tempoInicio = System.currentTimeMillis();
 
 
 	//max number of objects to be detected in frame
@@ -66,7 +68,6 @@ public class MultipleObjectTracking {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		mountFrames();
-
 //        CalibrationWindow.main(new String[0]);
 
 		// Matrices for image processing.
@@ -231,7 +232,7 @@ public class MultipleObjectTracking {
 	
 		Mat erodeElement = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
 		//dilate with larger element so make sure object is nicely visible
-		Mat dilateElement = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(8, 8));
+		Mat dilateElement = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(6, 6));
 	
 		Imgproc.erode(thresh, thresh, erodeElement);
 		Imgproc.erode(thresh, thresh, erodeElement);
@@ -255,17 +256,21 @@ public class MultipleObjectTracking {
 		
 		// use moments method to find our filtered object
 		boolean objectFound = false;
-	
-		if (contours.size() > 0) {
+
+        Double alfa = 0.2;
+
+
+        if (contours.size() > 0) {
 			int numObjects = contours.size();
 
             // Calculo da média histórica
-            Double alfa = 0.1;
-            mediaHistorica = mediaHistorica*(1-alfa)+numObjects*alfa;
-            System.out.println(mediaHistorica);
+            int contador;
+
 
             //if number of objects greater than MAX_NUM_OBJECTS we have a noisy filter
 			if (numObjects < MAX_NUM_OBJECTS) {
+                contador = 0;
+
 
 				for (int i=0; i< contours.size(); i++){
 					Moments moment = Imgproc.moments(contours.get(i));
@@ -276,6 +281,7 @@ public class MultipleObjectTracking {
 					//we only want the object with the largest area so we safe a reference area each
 					//iteration and compare it to the area in the next iteration.
 					if (area > MIN_OBJECT_AREA) {
+                        contador ++;
 						Ball ball = new Ball();
 						ball.setXPos((int)(moment.get_m10() / area));
 						ball.setYPos((int)(moment.get_m01() / area));
@@ -299,12 +305,19 @@ public class MultipleObjectTracking {
 					//draw object location on screen
 					drawObject(balls, cameraFeed);
 				}
+                mediaHistorica = mediaHistorica*(1-alfa)+contador*alfa;
+                imprimeContagem(mediaHistorica);
+
 	
 			} else {
 				Core.putText(cameraFeed, "TOO MUCH NOISE! ADJUST FILTER", new Point(0, 50), 1, 2, new Scalar(0, 0, 255), 2);
 			}
 	
 		}
+        else{
+            mediaHistorica = mediaHistorica*(1-alfa);
+            imprimeContagem(mediaHistorica);
+        }
 	
 	}
 
@@ -321,5 +334,13 @@ public class MultipleObjectTracking {
 		}
 
 	}
+
+    private String tempoPassado() {
+        return Long.toString(System.currentTimeMillis() - tempoInicio);
+    }
+
+    private void imprimeContagem(Double contagem) {
+        System.out.println(Double.toString(contagem) + " " + tempoPassado());
+    }
 
 }

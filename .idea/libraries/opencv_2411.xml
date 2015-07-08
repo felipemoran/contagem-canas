@@ -2,6 +2,7 @@
   <library name="opencv-2411">
     <CLASSES>
       <root url="jar:///usr/local/Cellar/opencv/2.4.11_1/share/OpenCV/java/opencv-2411.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Kinect/SimpleOpenNI/library/SimpleOpenNI.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
